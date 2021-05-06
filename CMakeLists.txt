@@ -1,4 +1,4 @@
-project(CS312-Particles)
+project(CS312-Final_Project)
 cmake_minimum_required(VERSION 2.8.11)
 
 if (WIN32) # Include win64 platforms
@@ -93,6 +93,6 @@ set(SHADERS
     shaders/billboard.fs
     shaders/billboard.vs)
 
-add_executable(planetarium src/planetarium-demo.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
+add_executable(planetarium src/planetarium-main.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
 target_link_libraries(planetarium ${CORE})
 

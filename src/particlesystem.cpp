@@ -41,12 +41,3 @@ void ParticleSystem::draw()
       theRenderer.quad(particle.pos, particle.color, particle.size);
    }
 }
-/*
-bool ParticleSystem::sort_help(const Particle &a, const Particle &b)
-{
-	vec3 cam_pos = theRenderer.cameraPosition();
-	float d1 = glm::distance(a.pos, cam_pos);
-	float d2 = glm::distance(b.pos, cam_pos);
-	return (d2 > d1);
-}
-*/

@@ -1,5 +1,7 @@
-// Bryn Mawr College, alinen, 2020
-// Smoke Flare
+// Shaili Regmi
+// CS312 - Final Project
+// Particle Planetarium
+// Base Code: Bryn Mawr College, alinen, 2020
 
 #include "AGL.h"
 #include "AGLM.h"
@@ -10,7 +12,7 @@ using namespace std;
 using namespace agl;
 using namespace glm;
 
-void MyParticleSystem::createParticles(int size) 
+void Planetarium::createParticles(int size) 
 {
    mBlendMode = ALPHA;
    mTexture = theRenderer.loadTexture("../textures/ParticleCloudWhite.png");
@@ -33,7 +35,7 @@ void MyParticleSystem::createParticles(int size)
    }
 }
 
-void MyParticleSystem::update(float dt)
+void Planetarium::update(float dt)
 {
 	vec3 cam_pos = theRenderer.cameraPosition();
 
