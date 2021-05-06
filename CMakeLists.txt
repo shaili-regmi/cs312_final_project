@@ -83,10 +83,8 @@ set(RENDER_SOURCES
     )
 
 set(PSYS_SOURCES 
-    src/confetti.h
-    src/confetti.cpp
-    src/myparticlesystem.h
-    src/myparticlesystem.cpp
+    src/planetarium.h
+    src/planetarium.cpp
     src/particlesystem.h
     src/particlesystem.cpp
     )
