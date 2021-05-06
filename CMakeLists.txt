@@ -93,12 +93,6 @@ set(SHADERS
     shaders/billboard.fs
     shaders/billboard.vs)
 
-add_executable(billboard src/main-billboard.cpp ${RENDER_SOURCES} ${SHADERS})
-target_link_libraries(billboard ${CORE})
-
-add_executable(confetti src/main-confetti.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
-target_link_libraries(confetti ${CORE})
-
-add_executable(demo src/main-demo.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
-target_link_libraries(demo ${CORE})
+add_executable(planetarium src/planetarium-demo.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
+target_link_libraries(planetarium ${CORE})
 
