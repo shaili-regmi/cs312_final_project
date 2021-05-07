@@ -1,7 +1,7 @@
 // Shaili Regmi
 // CS312 - Final Project
 // Particle Planetarium
-// Base Code: Bryn Mawr College, alinen, 2020
+// Base Code: Bryn Mawr College, alinen, 2020 and OpenGL (learnopengl.com)
 
 #include "AGL.h"
 #include "AGLM.h"
@@ -11,6 +11,8 @@
 #include <vector>
 #include "planetarium.h"
 #include "renderer.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 using namespace std;
 using namespace glm;
@@ -48,6 +50,38 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action, in
 
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
+}
+
+unsigned int loadCubemap(vector<std::string> faces)
+{
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    int width, height, nrChannels;
+    for (unsigned int i = 0; i < faces.size(); i++)
+    {
+        unsigned char* data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+            );
+            stbi_image_free(data);
+        }
+        else
+        {
+            std::cout << "Cubemap tex failed to load at path: " << faces[i] << std::endl;
+            stbi_image_free(data);
+        }
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    return textureID;
 }
 
 int main(int argc, char** argv)
@@ -99,6 +133,7 @@ int main(int argc, char** argv)
    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
    ParticleSystem::GetRenderer().lookAt(vec3(0, 0, 4), vec3(0, 0, 0));
    theSystem.init(100); // TODO: Set number of particles here
+   
 
    float lastTime = glfwGetTime();
    while (!glfwWindowShouldClose(window))
