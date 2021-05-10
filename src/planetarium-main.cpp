@@ -11,8 +11,6 @@
 #include <vector>
 #include "planetarium.h"
 #include "renderer.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
 using namespace std;
 using namespace glm;
@@ -52,6 +50,7 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
 {
 }
 
+/*
 unsigned int loadCubemap(vector<std::string> faces)
 {
     unsigned int textureID;
@@ -83,7 +82,7 @@ unsigned int loadCubemap(vector<std::string> faces)
 
     return textureID;
 }
-
+*/
 int main(int argc, char** argv)
 {
    GLFWwindow* window;
