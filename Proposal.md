@@ -6,13 +6,31 @@
 
 This project will be unique from other existing demos as it will simulate an animated shooting star/meteor/comet scene with multiple particles inside a skybox cubemap.
 The camera will rotate around with the cursor (or maybe, fly through) to look around the whole scene.
-Multiple particles will be used:
+Multiple particles/textures will be used:
+
+
+- A skybox texture mapped onto a cubemap for an all-around background.
+
+![skybox](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/skybox.png)
+
 
 - A rock-like particle for the comet core/meteor that moves around the scene.
 
+![meteor](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/meteor.png)
+
+
 - An animated glowing comet tail that moves with the core and gets brighter or lighter each frame.
 
+![fire-trail](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/fire-trail.jpg)
+![blue-trail](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/blue-trail.png)
+
+
 - Probably some randomly placed star particles that twinkle using a glow texture.
+
+![stars](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/stars.jpg)
+![shines](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/vector_shines_vector-shines.jpg)
+![glow](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/glow.png)
+
 
 ## Features planned and timeline for implementation:
 
@@ -41,7 +59,41 @@ Multiple particles will be used:
 
 ## Algorithms and Data Structures
 
+
 *Full sort*
 
+```
+#include <algorithm>
+.
+.
+.
+// Sort the particles after they have been updated
+
+std::sort(mParticles.begin(), mParticles.end()); //mParticles is the vector that stores the particles
+
+
+// In Particle struct definition
+
+bool operator<(const Particle& a) const
+{
+    float d1 = glm::distance(a.pos, a.cam_pos);
+    float d2 = glm::distance(pos, cam_pos);
+    return (d1 < d2);
+}
+
+```
 
 *Skybox*
+
+- Extend the classes and shaders used in Assignment 5 - particles.
+
+- Extend the shader to support the skybox by adding uniform variables.
+
+- Modify Renderer class to load the texture and draw the skybox.
+
+
+*Supporting multiple particles/textures*
+
+- Load each texture with a separate ID.
+
+- Distinguish between the different textures while setting uniform variables in the shader.
