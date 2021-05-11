@@ -80,6 +80,8 @@ set(RENDER_SOURCES
     src/image.cpp
     src/renderer.h
     src/renderer.cpp
+    src/skybox.h
+    src/skybox.cpp
     )
 
 set(PSYS_SOURCES 

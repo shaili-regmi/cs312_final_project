@@ -1,7 +1,7 @@
 // Shaili Regmi
 // CS312 - Final Project
 // Particle Planetarium
-// Base Code: Bryn Mawr College, alinen, 2020 and OpenGL (learnopengl.com)
+// Base Code: Bryn Mawr College, alinen, 2020 and OpenGL (learnopengl.com), David Wolff - OpenGL 4.0 Shading Language Cookbook
 
 #include "AGL.h"
 #include "AGLM.h"
@@ -95,7 +95,7 @@ int main(int argc, char** argv)
    glClearColor(0, 0, 0, 1);
 
    
-   float fov = radians(40.0f);
+   float fov = radians(100.0f);
    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
    ParticleSystem::GetRenderer().lookAt(vec3(0, 0, 4), vec3(0, 0, 0));
    theSystem.init(100); // TODO: Set number of particles here

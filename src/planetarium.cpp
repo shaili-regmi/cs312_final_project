@@ -15,7 +15,7 @@ using namespace glm;
 void Planetarium::createParticles(int size) 
 {
    mBlendMode = ALPHA;
-   mTexture = theRenderer.loadTexture("../textures/ParticleCloudWhite.png");
+   mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
 
    for (int i = 0; i < size; i++)
    {

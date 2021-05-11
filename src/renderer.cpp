@@ -44,6 +44,9 @@ vec3 Renderer::cameraPosition() const
 void Renderer::init(const std::string& vertex, const std::string& fragment)
 {
    mInitialized = true;
+
+   skybox = new SkyBox(6);
+
    const float positions[] =
    {
        0.0f, 0.0f, 0.0f,
@@ -114,11 +117,20 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    glUniformMatrix4fv(glGetUniformLocation(mShaderId, "uVP"), 1, GL_FALSE, &mvp[0][0]);
    glUniform3f(glGetUniformLocation(mShaderId, "uCameraPos"), mLookfrom[0], mLookfrom[1], mLookfrom[2]);
 
+   glActiveTexture(GL_TEXTURE0);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
    GLuint locId = glGetUniformLocation(mShaderId, "image");
    glUniform1i(locId, 0);
 
    glBindVertexArray(mVaoId);
    glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
+   
+   glActiveTexture(GL_TEXTURE1);
+   glUniform1i(glGetUniformLocation(mShaderId, "cubemap"), 1);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 1);
+   //glUniformMatrix4fv(glGetUniformLocation(mShaderId, "vM"), 1, GL_FALSE, &mViewMatrix[0][0]);
+
+   skybox->render();
 }
 
 void Renderer::quad(const glm::vec3& pos, const glm::vec4& color, float size)
@@ -168,6 +180,15 @@ GLuint Renderer::loadCubemap(vector<std::string> faces)
     glGenTextures(1, &texId);
     glBindTexture(GL_TEXTURE_CUBE_MAP, texId);
 
+    GLuint targets[] = {
+        GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+        GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+        GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+        GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+        GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+        GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+    };
+
     int width, height, nrChannels;
     for (unsigned int i = 0; i < faces.size(); i++)
     {
@@ -176,7 +197,7 @@ GLuint Renderer::loadCubemap(vector<std::string> faces)
         unsigned char* data = image.data();
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+            glTexImage2D(targets[i],
                 0, GL_RGBA, image.width(), image.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data
             );
         }

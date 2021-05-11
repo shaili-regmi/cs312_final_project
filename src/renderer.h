@@ -4,6 +4,7 @@
 #include "AGL.h"
 #include "AGLM.h"
 #include "image.h"
+#include "skybox.h"
 #include <string>
 #include <vector>
 
@@ -17,7 +18,7 @@ namespace agl {
 
       virtual void init(const std::string& vertex, const std::string& fragment);
       virtual GLuint loadTexture(const std::string& imageName);
-      virtual GLuint loadCubemap(vector<std::string> faces);
+      virtual GLuint loadCubemap(std::vector<std::string> faces);
       virtual void perspective(float fovRadians, float aspect, float near, float far); 
       virtual void ortho(float minx, float maxx, float miny, float maxy, float minz, float maxz); 
       virtual void lookAt(const glm::vec3& lookfrom, const glm::vec3& lookat);
@@ -43,6 +44,7 @@ namespace agl {
       glm::mat4 mViewMatrix;
       glm::vec3 mLookfrom;
       bool mInitialized;
+      SkyBox* skybox;
    };
 }
 
