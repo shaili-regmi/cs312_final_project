@@ -55,8 +55,8 @@ void main()
 
 	if(DrawSkyBox) {
 		ReflectDir = new_pos;
-   } 
-
-    gl_Position = uVP * transformation * vec4(new_pos, 1.0);
-	
+		gl_Position = uVP * vec4(vPos, 1.0);
+    } else {
+		gl_Position = uVP * transformation * vec4(new_pos, 1.0);
+    }
  }

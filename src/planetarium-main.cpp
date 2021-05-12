@@ -18,6 +18,14 @@ using namespace agl;
 
 Planetarium theSystem;
 
+double xpos, ypos;
+float change_x, change_y;
+
+float Dist = 4.5f;
+float Azimuth = 0.0f;
+float Elevation = 0.0f;
+float fov = 40.0f;
+
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
    if (action != GLFW_PRESS) return;
@@ -44,10 +52,45 @@ static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
+    int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+    float temp_Dist = 0.0f;
+    if (state == GLFW_PRESS)
+    {
+        glfwGetCursorPos(window, &xpos, &ypos);
+    }
+    else if (state == GLFW_RELEASE)
+    {
+
+    }
 }
 
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
+    int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+    if (state != GLFW_PRESS) return;
+
+    float x, y, z;
+    double old_xpos = xpos;
+    double old_ypos = ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+
+    if (xpos > radians(180.0)) xpos = radians(180.0);
+    if (xpos < radians(-180.0)) xpos = radians(-180.0);
+    if (ypos > radians(90.0)) ypos = radians(90.0);
+    if (ypos < radians(-90.0)) ypos = radians(-90.0);
+
+    change_x = xpos - old_xpos;
+    change_y = ypos - old_ypos;
+
+    Azimuth = 0.01 * change_x;
+    Elevation = 0.01 * change_y;
+
+    x = Dist * sin(Azimuth) * cos(Elevation);
+    y = Dist * sin(Elevation);
+    z = Dist * cos(Azimuth) * cos(Elevation);
+
+    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
+    ParticleSystem::GetRenderer().lookAt(vec3(x, y, z), vec3(0));
 }
 
 int main(int argc, char** argv)
@@ -94,10 +137,13 @@ int main(int argc, char** argv)
    glEnable(GL_CULL_FACE);
    glClearColor(0, 0, 0, 1);
 
+   float x, y, z;
+   x = Dist * sin(Azimuth) * cos(Elevation);
+   y = Dist * sin(Elevation);
+   z = Dist * cos(Azimuth) * cos(Elevation);
    
-   float fov = radians(100.0f);
    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
-   ParticleSystem::GetRenderer().lookAt(vec3(0, 0, 4), vec3(0, 0, 0));
+   ParticleSystem::GetRenderer().lookAt(vec3(x, y, z), vec3(0));
    theSystem.init(100); // TODO: Set number of particles here
    
 

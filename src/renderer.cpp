@@ -118,19 +118,22 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    glUniform3f(glGetUniformLocation(mShaderId, "uCameraPos"), mLookfrom[0], mLookfrom[1], mLookfrom[2]);
 
    glActiveTexture(GL_TEXTURE0);
-   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
+   //glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
    GLuint locId = glGetUniformLocation(mShaderId, "image");
    glUniform1i(locId, 0);
 
-   glBindVertexArray(mVaoId);
-   glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
-   
+  
    glActiveTexture(GL_TEXTURE1);
    glUniform1i(glGetUniformLocation(mShaderId, "cubemap"), 1);
-   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 1);
+   
    //glUniformMatrix4fv(glGetUniformLocation(mShaderId, "vM"), 1, GL_FALSE, &mViewMatrix[0][0]);
 
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 1);
    skybox->render();
+
+   glBindVertexArray(mVaoId);
+   glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
+
 }
 
 void Renderer::quad(const glm::vec3& pos, const glm::vec4& color, float size)
