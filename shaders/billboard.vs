@@ -19,18 +19,6 @@ out vec2 uv;
 
 void main()
 {
-/*
-   if(DrawSkyBox) {
-		ReflectDir = vPos;
-   } else {
-   
-		 // Compute the reflected direction in world coords.
-		 vec3 uPos = vec3(vM * vec4(vPos,1.0));
-		 vec3 uNorm = vec3(vM * vec4(vNorm, 0.0));
-		 vec3 uView = normalize(uCameraPos – uPos);
-		 ReflectDir = reflect(-uView, uNorm );
-   }*/
-
 	color = uColor;
 	uv = vPos.xy;
 	vec3 new_pos = vPos - vec3(0.5f, 0.5f, 0.0f);
@@ -54,9 +42,13 @@ void main()
 	mat4 transformation = trans_matrix * rotation_matrix * scale_matrix;
 
 	if(DrawSkyBox) {
+
 		ReflectDir = new_pos;
 		gl_Position = uVP * vec4(vPos, 1.0);
+
     } else {
+
 		gl_Position = uVP * transformation * vec4(new_pos, 1.0);
+
     }
  }

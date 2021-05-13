@@ -21,7 +21,7 @@ Planetarium theSystem;
 double xpos, ypos;
 float change_x, change_y;
 
-float Dist = 4.5f;
+float Dist = 2.5f;
 float Azimuth = 0.0f;
 float Elevation = 0.0f;
 float fov = 40.0f;

@@ -15,8 +15,8 @@ out vec4 FragColor;
 void main()
 {
 	// Access the cube map texture
-	 //vec4 cubeMapColor = texture(cubemap, ReflectDir);
-	 vec4 cubeMapColor = vec4(0.0f, 0.0f, 1.0f, 1.0f);
+	 vec4 cubeMapColor = texture(cubemap, ReflectDir);
+	 //vec4 cubeMapColor = vec4(0.0f, 0.0f, 1.0f, 1.0f);
 	if(DrawSkyBox) {
 		FragColor = cubeMapColor;
 	} else {

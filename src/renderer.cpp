@@ -118,12 +118,16 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    glUniform3f(glGetUniformLocation(mShaderId, "uCameraPos"), mLookfrom[0], mLookfrom[1], mLookfrom[2]);
 
    glActiveTexture(GL_TEXTURE0);
-   //glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
+   glBindTexture(GL_TEXTURE_2D, texIf);
+   //glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0); 
    GLuint locId = glGetUniformLocation(mShaderId, "image");
    glUniform1i(locId, 0);
 
-  
    glActiveTexture(GL_TEXTURE1);
+   vector<string> faces = { "../textures/skybox/right.png", "../textures/skybox/left.png", "../textures/skybox/front.png",
+                            "../textures/skybox/back.png", "../textures/skybox/top.png", "../textures/skybox/bottom.png" };
+   GLuint cubemapID = loadCubemap(faces);
+   glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapID);
    glUniform1i(glGetUniformLocation(mShaderId, "cubemap"), 1);
    
    //glUniformMatrix4fv(glGetUniformLocation(mShaderId, "vM"), 1, GL_FALSE, &mViewMatrix[0][0]);
