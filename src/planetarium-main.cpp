@@ -73,12 +73,12 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
     double old_xpos = xpos;
     double old_ypos = ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-
+    
     if (xpos > radians(180.0)) xpos = radians(180.0);
     if (xpos < radians(-180.0)) xpos = radians(-180.0);
     if (ypos > radians(90.0)) ypos = radians(90.0);
     if (ypos < radians(-90.0)) ypos = radians(-90.0);
-
+    
     change_x = xpos - old_xpos;
     change_y = ypos - old_ypos;
 
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
    /* Create a windowed mode window and its OpenGL context */
    float width = 500;
    float height = 500;
-   window = glfwCreateWindow(width, height, "Particle Viewer", NULL, NULL);
+   window = glfwCreateWindow(width, height, "Particle Planetarium", NULL, NULL);
    if (!window)
    {
       glfwTerminate();

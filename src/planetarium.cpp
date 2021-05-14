@@ -16,7 +16,7 @@ void Planetarium::createParticles(int size)
 {
    mBlendMode = ALPHA;
    mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
-
+   /*
    for (int i = 0; i < size; i++)
    {
 	   float z_pos = -1.0f + ((float)i / size);
@@ -32,7 +32,7 @@ void Planetarium::createParticles(int size)
 	   Particle particle = { position, velocity, color, part_size, mass, cam_pos };
 
 	   mParticles.push_back(particle);
-   }
+   }*/
 }
 
 void Planetarium::update(float dt)

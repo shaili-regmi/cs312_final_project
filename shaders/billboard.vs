@@ -19,36 +19,38 @@ out vec2 uv;
 
 void main()
 {
-	color = uColor;
-	uv = vPos.xy;
+
 	vec3 new_pos = vPos - vec3(0.5f, 0.5f, 0.0f);
 
-	mat4 trans_matrix = mat4 (1.0f, 0.0f, 0.0f, 0.0f, 
-								0.0f, 1.0f, 0.0f, 0.0f,
-								0.0f, 0.0f, 1.0f, 0.0f, 
-								uOffset.x, uOffset.y, uOffset.z, 1.0f);
- 
-	mat4 scale_matrix = mat4 (uSize, 0.0f, 0.0f, 0.0f,
-								0.0f, uSize, 0.0f, 0.0f,
-								0.0f, 0.0f, uSize, 0.0f,
-								0.0f, 0.0f, 0.0f, 1.0f);
-
-	vec3 cam_z = normalize(uCameraPos - uOffset);
-	vec3 cam_x = cross(vec3(0,1,0), normalize(cam_z));
-	vec3 cam_y = cross(normalize(cam_z), normalize(cam_x));
-
-	mat4 rotation_matrix = mat4 (vec4(cam_x, 0), vec4(cam_y, 0), vec4(cam_z, 0), vec4(0,0,0,1));
-
-	mat4 transformation = trans_matrix * rotation_matrix * scale_matrix;
-
 	if(DrawSkyBox) {
-
+	
 		ReflectDir = new_pos;
 		gl_Position = uVP * vec4(vPos, 1.0);
 
     } else {
 
-		gl_Position = uVP * transformation * vec4(new_pos, 1.0);
+		color = uColor;
+		uv = vPos.xy;
 
+		mat4 trans_matrix = mat4 (1.0f, 0.0f, 0.0f, 0.0f, 
+									0.0f, 1.0f, 0.0f, 0.0f,
+									0.0f, 0.0f, 1.0f, 0.0f, 
+									uOffset.x, uOffset.y, uOffset.z, 1.0f);
+ 
+		mat4 scale_matrix = mat4 (uSize, 0.0f, 0.0f, 0.0f,
+									0.0f, uSize, 0.0f, 0.0f,
+									0.0f, 0.0f, uSize, 0.0f,
+									0.0f, 0.0f, 0.0f, 1.0f);
+
+		vec3 cam_z = normalize(uCameraPos - uOffset);
+		vec3 cam_x = cross(vec3(0,1,0), normalize(cam_z));
+		vec3 cam_y = cross(normalize(cam_z), normalize(cam_x));
+
+		mat4 rotation_matrix = mat4 (vec4(cam_x, 0), vec4(cam_y, 0), vec4(cam_z, 0), vec4(0,0,0,1));
+
+		mat4 transformation = trans_matrix * rotation_matrix * scale_matrix;
+
+		gl_Position = uVP * transformation * vec4(new_pos, 1.0);
     }
+
  }
