@@ -106,7 +106,7 @@ void Renderer::lookAt(const vec3& lookfrom, const vec3& lookat)
    mViewMatrix = glm::lookAt(lookfrom, lookat, vec3(0,1,0));
 }
 
-void Renderer::begin(GLuint texIf, BlendMode mode)
+void Renderer::begin(/*GLuint texIf,*/ BlendMode mode)
 {
    assert(mInitialized);
 
@@ -120,24 +120,31 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    glActiveTexture(GL_TEXTURE1);
    vector<string> faces = { "../textures/skybox/right.png", "../textures/skybox/left.png", "../textures/skybox/front.png",
                             "../textures/skybox/back.png", "../textures/skybox/top.png", "../textures/skybox/bottom.png" };
-   //vector<string> faces = { "../textures/skybox/front.png", "../textures/skybox/back.png", "../textures/skybox/left.png",
-                            //"../textures/skybox/right.png", "../textures/skybox/bottom.png", "../textures/skybox/top.png" };
-   //vector<string> faces = { "../textures/skybox/front.png", "../textures/skybox/right.png", "../textures/skybox/back.png",
-                           //"../textures/skybox/left.png", "../textures/skybox/bottom.png", "../textures/skybox/top.png" };
+
    GLuint cubemapID = loadCubemap(faces);
    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapID);
    glUniform1i(glGetUniformLocation(mShaderId, "cubemap"), 1);
-   
-   //glUniformMatrix4fv(glGetUniformLocation(mShaderId, "vM"), 1, GL_FALSE, &mViewMatrix[0][0]);
-
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 1);
    skybox->render();
-
+   
    glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texIf);
+   GLuint meteorID = loadTexture("../textures/meteor.png");
+   glBindTexture(GL_TEXTURE_2D, meteorID);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
-   GLuint locId = glGetUniformLocation(mShaderId, "image");
-   glUniform1i(locId, 0);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawMeteor"), 1);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawTrail"), 0);
+   glUniform1i(glGetUniformLocation(mShaderId, "meteor"), 0);
+   
+   glBindVertexArray(mVaoId);
+   glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
+   
+   glActiveTexture(GL_TEXTURE2);
+   GLuint trailID = loadTexture("../textures/particle.png");
+   glBindTexture(GL_TEXTURE_2D, trailID);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawMeteor"), 0);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawTrail"), 1);
+   glUniform1i(glGetUniformLocation(mShaderId, "trail"), 2);
    
    glBindVertexArray(mVaoId);
    glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
@@ -167,8 +174,8 @@ GLuint Renderer::loadTexture(const std::string& filename)
    Image image;
    image.load(filename);
 
-   glEnable(GL_TEXTURE0);
-   glActiveTexture(GL_TEXTURE0);
+   //glEnable(GL_TEXTURE0);
+   //glActiveTexture(GL_TEXTURE0);
 
    GLuint texId;
    glGenTextures(1, &texId);

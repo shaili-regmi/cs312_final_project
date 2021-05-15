@@ -1,7 +1,6 @@
-#version 400
+#version 420
 
 layout (location = 0) in vec3 vPos;
-//layout (location = 1) in vec3 vNorm;
 
 out vec3 ReflectDir; // The direction of the reflected ray
 
@@ -10,8 +9,6 @@ uniform vec3 uCameraPos;
 uniform float uSize;
 uniform vec3 uOffset;
 uniform vec4 uColor;
-
-//uniform mat4 vM;
 uniform mat4 uVP;
 
 out vec4 color;

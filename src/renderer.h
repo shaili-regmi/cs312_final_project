@@ -23,7 +23,7 @@ namespace agl {
       virtual void ortho(float minx, float maxx, float miny, float maxy, float minz, float maxz); 
       virtual void lookAt(const glm::vec3& lookfrom, const glm::vec3& lookat);
 
-      virtual void begin(GLuint textureId, BlendMode mode);
+      virtual void begin(/*GLuint textureId,*/ BlendMode mode);
       virtual void quad(const glm::vec3& pos, const glm::vec4& color, float size);
       virtual void end();
 

@@ -15,8 +15,8 @@ using namespace glm;
 void Planetarium::createParticles(int size) 
 {
    mBlendMode = ALPHA;
-   mTexture = theRenderer.loadTexture("../textures/meteor.png");
-
+   //mTexture = theRenderer.loadTexture("../textures/meteor.png");
+   glEnable(GL_TEXTURE0);
    //float z_pos = -1.0f + ((float)i / size);
    vec3 position = vec3(-4.0f, 4.0f, 0.0);
    //float x = random_float(1.0f, 5.0f);
@@ -32,8 +32,10 @@ void Planetarium::createParticles(int size)
    Particle particle = { position, velocity, color, part_size, mass, cam_pos };
 
    mParticles.push_back(particle);
-
-   mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
+   
+   
+   glEnable(GL_TEXTURE2);
+   //mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
    position = vec3(0.0f, 0.0f, 0.0);
    x = 1.0f;
    y = -1.0f;
@@ -68,11 +70,13 @@ void Planetarium::createParticles(int size)
 void Planetarium::update(float dt)
 {
 	vec3 cam_pos = theRenderer.cameraPosition();
+	glEnable(GL_TEXTURE0);
 	Particle current_particle = mParticles[0];
 	vec3 new_pos = current_particle.pos + current_particle.vel * dt;
 	current_particle.pos = new_pos;
 	mParticles[0] = current_particle;
 	
+	glEnable(GL_TEXTURE2);
 	current_particle = mParticles[1];
 	new_pos = current_particle.pos + current_particle.vel * dt;
 	current_particle.pos = new_pos;
