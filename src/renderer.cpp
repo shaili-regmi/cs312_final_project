@@ -45,7 +45,7 @@ void Renderer::init(const std::string& vertex, const std::string& fragment)
 {
    mInitialized = true;
 
-   skybox = new SkyBox(6);
+   skybox = new SkyBox(8);
 
    const float positions[] =
    {
@@ -116,12 +116,6 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    mat4 mvp = mProjectionMatrix * mViewMatrix;
    glUniformMatrix4fv(glGetUniformLocation(mShaderId, "uVP"), 1, GL_FALSE, &mvp[0][0]);
    glUniform3f(glGetUniformLocation(mShaderId, "uCameraPos"), mLookfrom[0], mLookfrom[1], mLookfrom[2]);
-
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, texIf);
-   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
-   GLuint locId = glGetUniformLocation(mShaderId, "image");
-   glUniform1i(locId, 0);
    
    glActiveTexture(GL_TEXTURE1);
    vector<string> faces = { "../textures/skybox/right.png", "../textures/skybox/left.png", "../textures/skybox/front.png",
@@ -138,6 +132,12 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
 
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 1);
    skybox->render();
+
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, texIf);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
+   GLuint locId = glGetUniformLocation(mShaderId, "image");
+   glUniform1i(locId, 0);
    
    glBindVertexArray(mVaoId);
    glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader

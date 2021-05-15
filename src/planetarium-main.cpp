@@ -21,7 +21,7 @@ Planetarium theSystem;
 double xpos, ypos;
 float change_x, change_y;
 
-float Dist = 2.5f;
+float Dist = 3.0f;
 float Azimuth = 0.0f;
 float Elevation = 0.0f;
 float fov = 40.0f;
@@ -144,7 +144,7 @@ int main(int argc, char** argv)
    
    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
    ParticleSystem::GetRenderer().lookAt(vec3(x, y, z), vec3(0));
-   theSystem.init(100); // TODO: Set number of particles here
+   theSystem.init(1); // TODO: Set number of particles here
    
 
    float lastTime = glfwGetTime();
