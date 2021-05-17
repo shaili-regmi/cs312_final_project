@@ -89,7 +89,7 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
     y = Dist * sin(Elevation);
     z = Dist * cos(Azimuth) * cos(Elevation);
 
-    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
+    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.01f, 100.0f);
     ParticleSystem::GetRenderer().lookAt(vec3(x, y, z), vec3(0));
 }
 
@@ -142,7 +142,7 @@ int main(int argc, char** argv)
    y = Dist * sin(Elevation);
    z = Dist * cos(Azimuth) * cos(Elevation);
    
-   ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
+   ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.01f, 100.0f);
    ParticleSystem::GetRenderer().lookAt(vec3(x, y, z), vec3(0));
    theSystem.init(2); // TODO: Set number of particles here
    

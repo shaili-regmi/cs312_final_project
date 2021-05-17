@@ -4,12 +4,13 @@ in vec2 uv;
 in vec4 color;
 in vec3 ReflectDir;
 
-layout(binding = 0) uniform sampler2D meteor;
-layout(binding = 2) uniform sampler2D trail;
+//uniform sampler2D meteor;
+//uniform sampler2D trail;
+uniform sampler2D image;
 uniform samplerCube cubemap; 
 uniform bool DrawSkyBox; // Are we drawing the sky box?
-uniform bool DrawMeteor;
-uniform bool DrawTrail;
+//uniform bool DrawMeteor;
+//uniform bool DrawTrail;
 
 out vec4 FragColor;
 
@@ -20,13 +21,17 @@ void main()
 	if(DrawSkyBox) {
 		FragColor = cubeMapColor;
 	} else {
+		
+		FragColor = color * texture(image, uv);	
 
+		/*
 		if (DrawTrail)
 		{ 
 			FragColor = color * texture(trail, uv);
 		} else {
 			FragColor = color * texture(meteor, uv);
 		}
+		*/
 		//FragColor = mix(texture(meteor, uv), texture(trail, uv), 0.2);
 	}
 }

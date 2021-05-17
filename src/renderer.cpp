@@ -45,7 +45,7 @@ void Renderer::init(const std::string& vertex, const std::string& fragment)
 {
    mInitialized = true;
 
-   skybox = new SkyBox(8);
+   skybox = new SkyBox(50);
 
    const float positions[] =
    {
@@ -106,7 +106,7 @@ void Renderer::lookAt(const vec3& lookfrom, const vec3& lookat)
    mViewMatrix = glm::lookAt(lookfrom, lookat, vec3(0,1,0));
 }
 
-void Renderer::begin(/*GLuint texIf,*/ BlendMode mode)
+void Renderer::begin(GLuint texIf, BlendMode mode)
 {
    assert(mInitialized);
 
@@ -128,6 +128,12 @@ void Renderer::begin(/*GLuint texIf,*/ BlendMode mode)
    skybox->render();
    
    glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, texIf);
+   glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
+   glUniform1i(glGetUniformLocation(mShaderId, "image"), 0);
+
+   /*
+   glActiveTexture(GL_TEXTURE0);
    GLuint meteorID = loadTexture("../textures/meteor.png");
    glBindTexture(GL_TEXTURE_2D, meteorID);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
@@ -139,13 +145,14 @@ void Renderer::begin(/*GLuint texIf,*/ BlendMode mode)
    //glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
    
    glActiveTexture(GL_TEXTURE2);
-   //GLuint trailID = loadTexture("../textures/particle.png");
-  // glBindTexture(GL_TEXTURE_2D, trailID);
+   GLuint trailID = loadTexture("../textures/particle.png");
+   glBindTexture(GL_TEXTURE_2D, trailID);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawMeteor"), 0);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawTrail"), 1);
    glUniform1i(glGetUniformLocation(mShaderId, "trail"), 2);
-   
+   */
+
    glBindVertexArray(mVaoId);
    glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
 
@@ -174,8 +181,8 @@ GLuint Renderer::loadTexture(const std::string& filename)
    Image image;
    image.load(filename);
 
-   //glEnable(GL_TEXTURE0);
-   //glActiveTexture(GL_TEXTURE0);
+   glEnable(GL_TEXTURE0);
+   glActiveTexture(GL_TEXTURE0);
 
    GLuint texId;
    glGenTextures(1, &texId);

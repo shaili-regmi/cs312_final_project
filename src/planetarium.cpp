@@ -15,36 +15,39 @@ using namespace glm;
 void Planetarium::createParticles(int size) 
 {
    mBlendMode = ALPHA;
-   //mTexture = theRenderer.loadTexture("../textures/meteor.png");
-   glEnable(GL_TEXTURE0);
+   mTexture1 = theRenderer.loadTexture("../textures/meteor.png");
+   mTexture2 = theRenderer.loadTexture("../textures/blue-trail.png");
+   //glEnable(GL_TEXTURE0);
    //float z_pos = -1.0f + ((float)i / size);
-   vec3 position = vec3(-4.0f, 4.0f, 0.0);
+   //vec3 position = vec3(-4.0f, 4.0f, 0.0);
+   vec3 position = vec3(0);
    //float x = random_float(1.0f, 5.0f);
    //float y = random_float(-5.0f, -1.0f);
    float x = 1.0f;
    float y = -1.0f;
-   vec3 velocity = vec3(x, y, 0.1);
-   vec4 color = vec4(0.560f, 0.403f, 0.117f, 1.0f);
+   //vec3 velocity = vec3(x, y, 0.1);
+   vec3 velocity = vec3(0);
+   vec4 color = vec4(0.560f, 0.403f, 0.117f, 0.5f);
    float part_size = 4.0f;
    float mass = 4.0f;
    vec3 cam_pos = theRenderer.cameraPosition();
 
-   Particle particle = { position, velocity, color, part_size, mass, cam_pos };
+   Particle particle = { position, velocity, color, part_size, mass, cam_pos, mTexture1 };
 
    mParticles.push_back(particle);
    
-   glEnable(GL_TEXTURE2);
+   //glEnable(GL_TEXTURE2);
    //mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
-   position = vec3(0.0f, 0.0f, 0.0);
-   x = 1.0f;
-   y = -1.0f;
-   velocity = vec3(x, y, 0.1);
-   color = vec4(0.0f, 0.0f, 0.5f, 0.5f);
+   position = vec3(0, 0, 1.0f);
+   //x = 1.0f;
+   //y = -1.0f;
+   //velocity = vec3(x, y, 0.1);
+   color = vec4(0.0f, 0.0f, 1.0f, 0.5f);
    part_size = 4.0f;
    mass = 4.0f;
    cam_pos = theRenderer.cameraPosition();
 
-   particle = { position, velocity, color, part_size, mass, cam_pos };
+   particle = { position, velocity, color, part_size, mass, cam_pos, mTexture2 };
 
    mParticles.push_back(particle);
    /*
@@ -69,13 +72,13 @@ void Planetarium::createParticles(int size)
 void Planetarium::update(float dt)
 {
 	vec3 cam_pos = theRenderer.cameraPosition();
-	glEnable(GL_TEXTURE0);
+	//glEnable(GL_TEXTURE0);
 	Particle current_particle = mParticles[0];
 	vec3 new_pos = current_particle.pos + current_particle.vel * dt;
 	current_particle.pos = new_pos;
 	mParticles[0] = current_particle;
 
-	glEnable(GL_TEXTURE2);
+	//glEnable(GL_TEXTURE2);
 	current_particle = mParticles[1];
 	new_pos = current_particle.pos + current_particle.vel * dt;
 	current_particle.pos = new_pos;
@@ -102,5 +105,6 @@ void Planetarium::update(float dt)
 		mParticles[i] = current_particle;
 	}*/
 	std::sort(mParticles.begin(), mParticles.end());
+	//std::sort(mParticles2.begin(), mParticles2.end());
 }
 

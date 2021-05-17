@@ -15,6 +15,7 @@ namespace agl {
       float size;
       float mass;
       glm::vec3 cam_pos;
+      GLuint texIf;
       
       bool operator<(const Particle& a) const
       {
@@ -41,7 +42,9 @@ namespace agl {
    protected:
 
       std::vector<Particle> mParticles;
-      GLuint mTexture;
+      //std::vector<Particle> mParticles2;
+      GLuint mTexture1;
+      GLuint mTexture2;
       BlendMode mBlendMode;
       static Renderer theRenderer;
    };
