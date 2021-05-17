@@ -24,7 +24,7 @@ void main()
 		if (DrawTrail)
 		{ 
 			FragColor = color * texture(trail, uv);
-		} else if (DrawMeteor) {
+		} else {
 			FragColor = color * texture(meteor, uv);
 		}
 		//FragColor = mix(texture(meteor, uv), texture(trail, uv), 0.2);

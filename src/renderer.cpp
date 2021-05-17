@@ -135,12 +135,12 @@ void Renderer::begin(/*GLuint texIf,*/ BlendMode mode)
    glUniform1i(glGetUniformLocation(mShaderId, "DrawTrail"), 0);
    glUniform1i(glGetUniformLocation(mShaderId, "meteor"), 0);
    
-   glBindVertexArray(mVaoId);
-   glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
+   //glBindVertexArray(mVaoId);
+   //glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
    
    glActiveTexture(GL_TEXTURE2);
-   GLuint trailID = loadTexture("../textures/particle.png");
-   glBindTexture(GL_TEXTURE_2D, trailID);
+   //GLuint trailID = loadTexture("../textures/particle.png");
+  // glBindTexture(GL_TEXTURE_2D, trailID);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 0);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawMeteor"), 0);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawTrail"), 1);

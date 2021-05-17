@@ -33,7 +33,6 @@ void Planetarium::createParticles(int size)
 
    mParticles.push_back(particle);
    
-   
    glEnable(GL_TEXTURE2);
    //mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
    position = vec3(0.0f, 0.0f, 0.0);
@@ -75,7 +74,7 @@ void Planetarium::update(float dt)
 	vec3 new_pos = current_particle.pos + current_particle.vel * dt;
 	current_particle.pos = new_pos;
 	mParticles[0] = current_particle;
-	
+
 	glEnable(GL_TEXTURE2);
 	current_particle = mParticles[1];
 	new_pos = current_particle.pos + current_particle.vel * dt;
