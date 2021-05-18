@@ -20,16 +20,15 @@ Multiple particles/textures will be used:
 
 
 - An animated glowing comet tail that moves with the core and gets brighter or lighter each frame.
+![glow](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/particle.png)
 
-![fire-trail](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/fire-trail.jpg)
+- Some Shooting stars
 ![blue-trail](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/blue-trail.png)
 
 
-- Probably some randomly placed star particles that twinkle using a glow texture.
+- Probably some randomly placed star particles that twinkle.
 
-![stars](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/stars.jpg)
-![shines](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/vector_shines_vector-shines.jpg)
-![glow](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/glow.png)
+![stars](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/stars.png)
 
 
 ## Features planned and timeline for implementation:
