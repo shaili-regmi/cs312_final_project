@@ -18,6 +18,7 @@ ParticleSystem::ParticleSystem()
    mTexture1 = -1;
    mTexture2 = -1;
    mTexture3 = -1;
+   mTexture4 = -1;
 }
 
 ParticleSystem::~ParticleSystem()

@@ -45,6 +45,7 @@ namespace agl {
       GLuint mTexture1;
       GLuint mTexture2;
       GLuint mTexture3;
+      GLuint mTexture4;
       BlendMode mBlendMode;
       static Renderer theRenderer;
    };
