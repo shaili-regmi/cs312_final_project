@@ -15,96 +15,99 @@ using namespace glm;
 void Planetarium::createParticles(int size) 
 {
    mBlendMode = ALPHA;
-   mTexture1 = theRenderer.loadTexture("../textures/meteor.png");
-   mTexture2 = theRenderer.loadTexture("../textures/blue-trail.png");
-   //glEnable(GL_TEXTURE0);
-   //float z_pos = -1.0f + ((float)i / size);
-   //vec3 position = vec3(-4.0f, 4.0f, 0.0);
-   vec3 position = vec3(0);
-   //float x = random_float(1.0f, 5.0f);
-   //float y = random_float(-5.0f, -1.0f);
-   float x = 1.0f;
-   float y = -1.0f;
-   //vec3 velocity = vec3(x, y, 0.1);
-   vec3 velocity = vec3(0);
-   vec4 color = vec4(0.560f, 0.403f, 0.117f, 0.5f);
-   float part_size = 4.0f;
-   float mass = 4.0f;
-   vec3 cam_pos = theRenderer.cameraPosition();
+   mTexture1 = theRenderer.loadTexture("../textures/blue-trail.png");
+   mTexture2 = theRenderer.loadTexture("../textures/stars-rescale.png");
+   mTexture3 = theRenderer.loadTexture("../textures/meteor.png");
 
-   Particle particle = { position, velocity, color, part_size, mass, cam_pos, mTexture1 };
-
-   mParticles.push_back(particle);
-   
-   //glEnable(GL_TEXTURE2);
-   //mTexture = theRenderer.loadTexture("../textures/blue-trail.png");
-   position = vec3(0, 0, 1.0f);
-   //x = 1.0f;
-   //y = -1.0f;
-   //velocity = vec3(x, y, 0.1);
-   color = vec4(0.0f, 0.0f, 1.0f, 0.5f);
-   part_size = 4.0f;
-   mass = 4.0f;
-   cam_pos = theRenderer.cameraPosition();
-
-   particle = { position, velocity, color, part_size, mass, cam_pos, mTexture2 };
-
-   mParticles.push_back(particle);
-   /*
    for (int i = 0; i < size; i++)
    {
-	   float z_pos = -1.0f + ((float)i / size);
-	   vec3 position = vec3(0.0f, -1.0f, z_pos);
-	   float x = random_float(-1.0f, 1.0f);
-	   float y = abs(random_float(0.0f, 5.0f));
-	   vec3 velocity = vec3(x, y, 0.1);
-	   vec4 color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	   float part_size = 0.5f;
-	   float mass = 2.0f;
+	   float x_pos = -5.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.0f - (-5.0f))));
+	   float y_pos = 1.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (5.0f - (1.0f))));
+	   float z_pos = -3.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3.0f - (-3.0f))));
+
+	   vec3 position = vec3(x_pos, y_pos, z_pos);
+	   vec3 velocity = vec3(1.0f, -1.0f, 0.0f);
+	   vec4 color = vec4(0.474f, 0.749f, 0.843f, 1.0f);
+	   float part_size = 3.0f;
+	   float mass = 3.0f;
 	   vec3 cam_pos = theRenderer.cameraPosition();
 
-	   Particle particle = { position, velocity, color, part_size, mass, cam_pos };
-
+	   Particle particle = { position, velocity, color, part_size, mass, cam_pos, mTexture1 };
 	   mParticles.push_back(particle);
-   }*/
+
+	   x_pos = -5.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.0f - (-5.0f))));
+	   y_pos = 1.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (5.0f - (1.0f))));
+	   z_pos = -3.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3.0f - (-3.0f))));
+
+	   position = vec3(x_pos, y_pos, z_pos);
+	   velocity = vec3(1.0f, -1.0f, 0.0f);
+	   color = vec4(0.560f, 0.403f, 0.117f, 1.0f);
+	   part_size = 3.0f;
+	   mass = 3.0f;
+	   cam_pos = theRenderer.cameraPosition();
+
+	   particle = { position, velocity, color, part_size, mass, cam_pos, mTexture3 };
+	   mParticles.push_back(particle);
+
+	   x_pos = -4.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (4.0f - (-4.0f))));
+	   y_pos = -4.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (4.0f - (-4.0f))));
+	   z_pos = -2.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (2.0f - (-2.0f))));
+
+	   position = vec3(x_pos, y_pos, z_pos);
+	   velocity = vec3(0);
+	   color = vec4(1);
+	   part_size = 3.0f;
+	   mass = 3.0f;
+	   cam_pos = theRenderer.cameraPosition();
+
+	   particle = { position, velocity, color, part_size, mass, cam_pos, mTexture2 };
+	   mParticles.push_back(particle);
+
+	   position = vec3(-x_pos, -y_pos, -z_pos);
+	   particle = { position, velocity, color, part_size, mass, cam_pos, mTexture2 };
+	   mParticles.push_back(particle);
+   }
 }
 
 void Planetarium::update(float dt)
 {
-	vec3 cam_pos = theRenderer.cameraPosition();
-	//glEnable(GL_TEXTURE0);
-	Particle current_particle = mParticles[0];
-	vec3 new_pos = current_particle.pos + current_particle.vel * dt;
-	current_particle.pos = new_pos;
-	mParticles[0] = current_particle;
-
-	//glEnable(GL_TEXTURE2);
-	current_particle = mParticles[1];
-	new_pos = current_particle.pos + current_particle.vel * dt;
-	current_particle.pos = new_pos;
-	mParticles[1] = current_particle;
-	/*
 	for (int i = 0; i < mParticles.size(); i++)
 	{
 		Particle current_particle = mParticles[i];
-		vec3 new_pos = current_particle.pos + current_particle.vel * dt;
-		current_particle.size += 0.01;
-		float alpha = current_particle.color.w;
-		current_particle.color = vec4(1.0f, 0.0f, 0.0f, (alpha - 0.01f));
+		if (current_particle.texIf == mTexture1 || current_particle.texIf == mTexture3)
+		{
+			vec3 new_pos = current_particle.pos + current_particle.vel * dt;
 
+			//Reuse particles
+			if (new_pos.x > 5.0f || new_pos.y < -5.0f || new_pos.z > 2.5f)
+			{
+				float x_pos = -5.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (0.0f - (-5.0f))));
+				float y_pos = 1.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (5.0f - (1.0f))));
+				float z_pos = -3.0f + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3.0f - (-3.0f))));
 
-		if (new_pos.x > 2.5f || new_pos.x < -2.5f || new_pos.y > 2.5f)
-		{ // Reuse particle
-			float z_pos = -1.0f + ((float)i / mParticles.size());
-			new_pos = vec3(0.0f, -1.0f, z_pos);
-			current_particle.color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
-			current_particle.size = 0.5f;
+				new_pos = vec3(x_pos, y_pos, z_pos);
+			}
+			current_particle.pos = new_pos;
+			vec3 cam_pos = theRenderer.cameraPosition();
+			current_particle.cam_pos = cam_pos;
+			mParticles[i] = current_particle;
 		}
+		else if (current_particle.texIf == mTexture2)
+		{
+			float current_w = current_particle.color.w;
+			float new_w = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			while (new_w == current_w)
+			{
+				new_w = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			}
+			vec4 color = vec4(1.0f, 1.0f, 1.0f, new_w);
+			current_particle.color = color;
+			vec3 cam_pos = theRenderer.cameraPosition();
+			current_particle.cam_pos = cam_pos;
+			mParticles[i] = current_particle;
+		}
+	}
 
-		current_particle.pos = new_pos;
-		mParticles[i] = current_particle;
-	}*/
 	std::sort(mParticles.begin(), mParticles.end());
-	//std::sort(mParticles2.begin(), mParticles2.end());
 }
 

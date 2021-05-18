@@ -42,9 +42,9 @@ namespace agl {
    protected:
 
       std::vector<Particle> mParticles;
-      //std::vector<Particle> mParticles2;
       GLuint mTexture1;
       GLuint mTexture2;
+      GLuint mTexture3;
       BlendMode mBlendMode;
       static Renderer theRenderer;
    };

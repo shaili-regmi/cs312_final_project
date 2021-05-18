@@ -17,12 +17,12 @@ ParticleSystem::ParticleSystem()
    mBlendMode = ADD;
    mTexture1 = -1;
    mTexture2 = -1;
+   mTexture3 = -1;
 }
 
 ParticleSystem::~ParticleSystem()
 {
     mParticles.clear();
-    //mParticles2.clear();
 }
 
 void ParticleSystem::init(int size)
@@ -34,7 +34,7 @@ void ParticleSystem::init(int size)
    createParticles(size);
 }
 
-void ParticleSystem::draw() 
+void ParticleSystem::draw()
 {
     for (int i = 0; i < mParticles.size(); i++)
     {
@@ -42,19 +42,4 @@ void ParticleSystem::draw()
         theRenderer.begin(particle.texIf, mBlendMode);
         theRenderer.quad(particle.pos, particle.color, particle.size);
     }
-    /*
-   theRenderer.begin(mTexture1, mBlendMode);
-   for (int i = 0; i < mParticles1.size(); i++)
-   {
-      Particle particle = mParticles1[i];
-      theRenderer.quad(particle.pos, particle.color, particle.size);
-   }
-
-   theRenderer.begin(mTexture2, mBlendMode);
-   for (int i = 0; i < mParticles2.size(); i++)
-   {
-       Particle particle = mParticles2[i];
-       theRenderer.quad(particle.pos, particle.color, particle.size);
-   }
-   */
 }
