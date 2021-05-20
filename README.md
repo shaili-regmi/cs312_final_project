@@ -43,12 +43,12 @@ cs312_final_project/build $ ../bin/planetarium
 
 ```
 
-*Note: All the textures used are in the textures directory in this repository, the thumbnails used in this README are in the thumbnails directory, and all the demo videos are in the demos directory as well as on vimeo.com (links below).*
+*Note: All the textures used are in the textures directory in this repository, the thumbnails used in this README are in the thumbnails directory, and all the demo videos are in the demos directory as well as on vimeo.com (links below - click on the images in the Algorithms and Data Structures section and the results/demos sections).*
 
 
 # Planetarium using Particles
 
-[!Planetarium](https://github.com/shaili-regmi/cs312_final_project/blob/main/thumbnails/planetarium.png)
+![Planetarium](https://github.com/shaili-regmi/cs312_final_project/blob/main/thumbnails/planetarium.png)
 
 
 *A planetarium of twinkling and shooting stars and a glowing meteor with a space skybox cubemap as the background and a rotating camera.*
@@ -72,12 +72,12 @@ Multiple particles/textures are used:
 ![glow](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/particle.png)
 
 
-- Some Shooting stars
+- Some shooting stars
 
 ![blue-trail](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/blue-trail.png)
 
 
-- Randomly placed star that twinkle.
+- Randomly placed stars that twinkle.
 
 ![stars](https://github.com/shaili-regmi/cs312_final_project/blob/main/textures/stars.png)
 
@@ -141,7 +141,7 @@ z = Dist * cos(Azimuth) * cos(Elevation)
 
 - The vector list containing the particles sorted so that there is no black box around the particles and that no particle blocks another particle from the camera view.
 
-- The std::sort under <algorithm> header used for a fast O(n log n) sort.
+- The std::sort under the algorithm header used for a fast O(n log n) sort.
 
 - Defined the less-than (<) operator for the particle struct so that each particle knows what order it should be in with respect to other particles.
 
@@ -169,7 +169,7 @@ bool operator<(const Particle& a) const
 ```
 
 
-*Supporting multiple textures for Particles*
+*Supporting multiple textures for particles*
 
 - Modified ParticleSystem class to store separate IDs for each texture used as member variables.
 
