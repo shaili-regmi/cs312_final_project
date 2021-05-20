@@ -144,7 +144,7 @@ int main(int argc, char** argv)
    
    ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.01f, 100.0f);
    ParticleSystem::GetRenderer().lookAt(vec3(x, y, z), vec3(0));
-   theSystem.init(5); // TODO: Set number of particles here
+   theSystem.init(10); // TODO: Set number of particles here
    
 
    float lastTime = glfwGetTime();

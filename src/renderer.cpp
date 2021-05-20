@@ -70,6 +70,14 @@ void Renderer::init(const std::string& vertex, const std::string& fragment)
    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
 
    mShaderId = loadShader(vertex, fragment);
+
+   glActiveTexture(GL_TEXTURE1);
+   vector<string> faces = { "../textures/skybox/right.png", "../textures/skybox/left.png", "../textures/skybox/front.png",
+                            "../textures/skybox/back.png", "../textures/skybox/top.png", "../textures/skybox/bottom.png" };
+
+   GLuint cubemapID = loadCubemap(faces);
+   glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapID);
+   faces.clear();
 }
 
 void Renderer::blendMode(BlendMode mode)
@@ -118,11 +126,6 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
    glUniform3f(glGetUniformLocation(mShaderId, "uCameraPos"), mLookfrom[0], mLookfrom[1], mLookfrom[2]);
    
    glActiveTexture(GL_TEXTURE1);
-   vector<string> faces = { "../textures/skybox/right.png", "../textures/skybox/left.png", "../textures/skybox/front.png",
-                            "../textures/skybox/back.png", "../textures/skybox/top.png", "../textures/skybox/bottom.png" };
-
-   GLuint cubemapID = loadCubemap(faces);
-   glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapID);
    glUniform1i(glGetUniformLocation(mShaderId, "cubemap"), 1);
    glUniform1i(glGetUniformLocation(mShaderId, "DrawSkyBox"), 1);
    skybox->render();
@@ -134,8 +137,6 @@ void Renderer::begin(GLuint texIf, BlendMode mode)
 
    glBindVertexArray(mVaoId);
    glEnableVertexAttribArray(0); // 0 -> Sending VertexPositions to array #0 in the active shader
-
-   faces.clear();
 }
 
 void Renderer::quad(const glm::vec3& pos, const glm::vec4& color, float size)
